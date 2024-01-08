@@ -9,11 +9,11 @@ const messageSchema = new Schema ({
   },
   sender: {
     type: Schema.Types.ObjectId,
-    ref: 'profile'
+    ref: 'Profile'
   },
-  receiver: {
+  recipient: {
     type: Schema.Types.ObjectId,
-    ref: 'profile'
+    ref: 'Profile'
   }
 },
   {timestamps: true}
