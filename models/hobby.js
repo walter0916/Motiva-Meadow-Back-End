@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -9,8 +9,8 @@ const hobbySchema = new Schema({
   },
   type: {
     type: String,
-    enum: ["work", "personal", "interpersonal"],
-    default: "work",
+    enum: ['work', 'personal', 'interpersonal'],
+    default: 'work',
   },
   weeklyGoal: {
     type: Number,
@@ -18,7 +18,7 @@ const hobbySchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "Profile"
+    ref: 'Profile'
   },
   currentStreak: {
     type: Number,

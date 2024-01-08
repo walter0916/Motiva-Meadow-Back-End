@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -9,7 +9,7 @@ const itemSchema = new Schema({
   },
   color: {
     type: String,
-    enum: ["blue", "green", "yellow", "purple", "red", "orange", "pink"],
+    enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink'],
     default: 'white'
   }
 },
@@ -27,7 +27,7 @@ const toDoListSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "Profile"
+    ref: 'Profile'
   }
 },
   {timestamps: true}

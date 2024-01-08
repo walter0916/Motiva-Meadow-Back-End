@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -9,8 +9,8 @@ const goalSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ["work", "personal", "interpersonal"],
-    default: "personal"
+    enum: ['work', 'personal', 'interpersonal'],
+    default: 'personal'
   },
   dueDate: {
     type: String,
@@ -18,8 +18,8 @@ const goalSchema = new Schema({
   },
   priority: {
     type: String,
-    enum: ["casual", "kind of important", "super important" ],
-    default: "casual"
+    enum: ['casual', 'kind of important', 'super important' ],
+    default: 'casual'
   },
   completed: {
     type: Boolean,
@@ -27,7 +27,7 @@ const goalSchema = new Schema({
   },
   author: {
     type: Schema.Types.ObjectId,
-    ref: "Profile"
+    ref: 'Profile'
   }
 },
   { timestamps: true }
