@@ -43,9 +43,24 @@ async function deleteGoal(req, res){
   }
 }
 
+async function updateCompletion(req, res) {
+  try {
+    const { completed } = req.body
+    const goal = await Goal.findByIdAndUpdate(
+      req.params.goalId,
+      { completed },
+      { new: true }
+    )
+    res.status(200).json(goal)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export{
   index,
   update,
   create,
-  deleteGoal as delete
+  deleteGoal as delete,
+  updateCompletion 
 }
