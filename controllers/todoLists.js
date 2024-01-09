@@ -34,8 +34,18 @@ async function update(req, res){
   }
 }
 
+async function deleteList(req, res){
+  try {
+    const todoList = await ToDoList.findByIdAndDelete(req.params.todoId)
+    res.status(200).json(todoList)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   create,
   update,
+  deleteList as delete,
 }
