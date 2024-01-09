@@ -6,11 +6,22 @@ async function index(res, req){
       .populate('tasks')
       .sort({ createdAt: 'desc' })
     res.status(200).json(todoLists) 
-  } catch (err) {
-    res.status(500).json(err)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+async function create(res, req){
+  try {
+    req.body.author = req.params.profileId
+    const todoList = await ToDoList.create(req.body)
+    res.status(200).json(todoList)
+  } catch (error) {
+    res.status(500).json(error)
   }
 }
 
 export {
-  index
+  index,
+  create,
 }
