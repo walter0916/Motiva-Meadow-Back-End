@@ -11,6 +11,16 @@ async function index(req, res){
   }
 }
 
+async function create(req, res){
+  try {
+    req.body.author = req.params.profileId
+    const goal = await Goal.create(req.body)
+    res.status(200).json(goal)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function update(req, res){
   try {
     const goal = await Goal.findByIdAndUpdate(
@@ -26,5 +36,6 @@ async function update(req, res){
 
 export{
   index,
-  update
+  update,
+  create
 }

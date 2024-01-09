@@ -10,6 +10,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, goalsCtrl.index)
+router.post('/:profileId/create', checkAuth, goalsCtrl.create)
 router.put('/:goalId/edit', checkAuth, goalsCtrl.update)
 
 export { router }
