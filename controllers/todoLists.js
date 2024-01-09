@@ -21,7 +21,21 @@ async function create(res, req){
   }
 }
 
+async function update(req, res){
+  try {
+    const todoList = await ToDoList.findByIdAndUpdate(
+      req.params.todoId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(todoList)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   create,
+  update,
 }

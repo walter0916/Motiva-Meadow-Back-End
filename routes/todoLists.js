@@ -11,6 +11,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, todosCtrl.index)
 router.post('/:profileId/create', checkAuth, todosCtrl.create)
+router.put('/:todoId/edit', checkAuth, todosCtrl.update)
 
 
 export { router }
