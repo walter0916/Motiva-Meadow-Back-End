@@ -34,8 +34,18 @@ async function update(req, res){
   }
 }
 
+async function deleteGoal(req, res){
+  try {
+    const goal = await Goal.findByIdAndDelete(req.params.goalId)
+    res.status(200).json(goal)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export{
   index,
   update,
-  create
+  create,
+  deleteGoal as delete
 }
