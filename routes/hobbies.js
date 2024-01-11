@@ -10,6 +10,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, hobbiesCtrl.index)
+router.update('/:hobbyId/edit', checkAuth, hobbiesCtrl.update)
 
 
 export { router }

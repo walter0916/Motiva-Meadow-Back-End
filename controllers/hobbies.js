@@ -11,6 +11,20 @@ async function index (req, res){
   }
 }
 
+async function updateHobby (req, res) {
+  try {
+    const hobby = await Hobby.findByIdAndUpdate(
+      req.params.hobbyId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(hobby)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
-  index
+  index,
+  updateHobby as update,
 }
