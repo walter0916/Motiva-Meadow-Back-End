@@ -34,8 +34,18 @@ async function updateHobby (req, res) {
   }
 }
 
+async function deleteHobby (req, res) {
+  try {
+    const hobby = await Hobby.findByIdAndDelete(req.params.hobbyId)
+    res.status(200).json(hobby)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   updateHobby as update,
-  create
+  create,
+  deleteHobby as delete
 }

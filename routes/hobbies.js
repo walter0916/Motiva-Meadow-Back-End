@@ -12,6 +12,7 @@ router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, hobbiesCtrl.index)
 router.post('/:profileId/new', checkAuth, hobbiesCtrl.create)
 router.update('/:hobbyId/edit', checkAuth, hobbiesCtrl.update)
+router.delete('/:hobbyId/delete', checkAuth, hobbiesCtrl.delete)
 
 
 export { router }
