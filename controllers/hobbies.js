@@ -50,10 +50,9 @@ async function completeHobby(req, res) {
     const updatedHobby = await Hobby.findByIdAndUpdate(
       req.params.hobbyId,
       { 
-        isCompleted: completedThisWeek,
         currentStreak: completedThisWeek ? req.body.currentStreak + 1 : 0,
         LongestStreak: Math.max(req.body.LongestStreak, req.body.currentStreak + 1),
-        LastCompleted: completedThisWeek ? new Date() : undefined,
+        LastCompleted: completedThisWeek ? new Date() : req.body.LastCompleted,
       },
       { new: true }
     )
