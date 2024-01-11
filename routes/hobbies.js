@@ -11,8 +11,9 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, hobbiesCtrl.index)
 router.post('/:profileId/new', checkAuth, hobbiesCtrl.create)
-router.update('/:hobbyId/edit', checkAuth, hobbiesCtrl.update)
+router.put('/:hobbyId/edit', checkAuth, hobbiesCtrl.update)
 router.delete('/:hobbyId/delete', checkAuth, hobbiesCtrl.delete)
+router.put('/:hobbyId/updateCompletion', checkAuth, hobbiesCtrl.completeHobby)
 
 
 export { router }

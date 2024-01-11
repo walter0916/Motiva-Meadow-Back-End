@@ -43,9 +43,32 @@ async function deleteHobby (req, res) {
   }
 }
 
+
+async function completeHobby(req, res) {
+  try {
+    const { completedThisWeek } = req.body
+    const updatedHobby = await Hobby.findByIdAndUpdate(
+      req.params.hobbyId,
+      { 
+        isCompleted: completedThisWeek,
+        currentStreak: completedThisWeek ? req.body.currentStreak + 1 : 0,
+        LongestStreak: Math.max(req.body.LongestStreak, req.body.currentStreak + 1),
+        LastCompleted: completedThisWeek ? new Date() : undefined,
+      },
+      { new: true }
+    )
+    res.status(200).json(updatedHobby)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+
+
 export {
   index,
   updateHobby as update,
   create,
-  deleteHobby as delete
+  deleteHobby as delete,
+  completeHobby
 }
