@@ -11,6 +11,16 @@ async function index (req, res){
   }
 }
 
+async function create (req, res) {
+  try {
+    req.body.author = req.params.profileId
+    const hobby = await Hobby.create(req.body)
+    res.status(200).json(hobby)
+  } catch (error) {
+    req.status(500).json(error)
+  }
+}
+
 async function updateHobby (req, res) {
   try {
     const hobby = await Hobby.findByIdAndUpdate(
@@ -27,4 +37,5 @@ async function updateHobby (req, res) {
 export {
   index,
   updateHobby as update,
+  create
 }
