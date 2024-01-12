@@ -28,7 +28,21 @@ async function create(req, res) {
   }
 }
 
+async function updateMessage(req, res) {
+  try {
+    const message = await Message.findByIdAndUpdate(
+      req.params.messageId, 
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(message)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   create,
+  updateMessage as update,
 }

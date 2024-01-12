@@ -11,6 +11,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, messagesCtrl.index)
 router.post('/:senderId/:recipientId/new', checkAuth, messagesCtrl.create)
+router.put('/:messageId/edit', checkAuth, messagesCtrl.update)
 
 
 export { router }
