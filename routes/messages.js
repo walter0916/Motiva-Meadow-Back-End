@@ -12,6 +12,7 @@ router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, messagesCtrl.index)
 router.post('/:senderId/:recipientId/new', checkAuth, messagesCtrl.create)
 router.put('/:messageId/edit', checkAuth, messagesCtrl.update)
+router.delete('/:messageId/delete', checkAuth, messagesCtrl.delete)
 
 
 export { router }

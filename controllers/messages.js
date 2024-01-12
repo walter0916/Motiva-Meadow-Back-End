@@ -41,8 +41,18 @@ async function updateMessage(req, res) {
   }
 }
 
+async function deleteMessage(req, res) {
+  try {
+    const message = await Message.findByIdAndDelete(req.params.messageId)
+    res.status(200).json(message)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   create,
   updateMessage as update,
+  deleteMessage as delete
 }
