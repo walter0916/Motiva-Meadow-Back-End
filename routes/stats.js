@@ -12,5 +12,6 @@ router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, statsCtrl.index)
 router.post('/:profileId/new', checkAuth, statsCtrl.create)
 router.put('/:statId/edit', checkAuth, statsCtrl.update)
+router.delete('/:statId/delete', checkAuth, statsCtrl.delete)
 
 export { router }

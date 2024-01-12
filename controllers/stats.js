@@ -33,8 +33,18 @@ async function updateStat(req, res) {
   }
 }
 
+async function deleteStat(req, res) {
+  try {
+    const stat = await Stat.findByIdAndDelete(req.params.statId)
+    res.status(200).json(stat)
+  } catch (error) {
+    res.stats(500).json(error)
+  }
+}
+
 export {
   index,
   create,
   updateStat as update,
+  deleteStat as delete
 }
