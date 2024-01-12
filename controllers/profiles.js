@@ -45,8 +45,25 @@ async function updatePreferences(req, res) {
   }
 }
 
+async function updateFriends(req, res) {
+  try {
+    const { friends } = req.body
+    const updatedProfile = await Profile.findByIdAndUpdate(
+      req.params.profileId,
+      { friends },
+      { new: true }
+    )
+    res.status(200).json(updatedProfile)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json(error)
+  }
+}
+
+
 export { 
   index, 
   addPhoto,
-  updatePreferences
+  updatePreferences,
+  updateFriends
 }
