@@ -21,7 +21,22 @@ async function create(req, res) {
   }
 }
 
+async function updateEvent(req, res) {
+  try {
+    const event = await Event.findByIdAndUpdate(
+      req.params.eventId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(event)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
   create,
+  updateEvent as update,
+
 }
