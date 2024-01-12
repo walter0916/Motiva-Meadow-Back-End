@@ -20,7 +20,21 @@ async function create(req, res) {
   }
 }
 
+async function updateStat(req, res) {
+  try {
+    const stat = await Stat.findByIdAndUpdate(
+      req.params.statId, 
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(stat)
+  } catch (error) {
+    res.stats(500).json(error)
+  }
+}
+
 export {
   index,
-  create
+  create,
+  updateStat as update,
 }
