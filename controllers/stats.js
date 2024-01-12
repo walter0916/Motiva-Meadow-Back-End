@@ -4,12 +4,23 @@ async function index(req, res) {
   try {
     const stats = await Stat.find({profile: req.params.profileId})
       .populate('profile')
-    res.Status(200).json(stats)
+    res.status(200).json(stats)
+  } catch (error) {
+    res.stats(500).json(error)
+  }
+}
+
+async function create(req, res) {
+  try {
+    req.body.profile = req.params.profileId
+    const stat = await Stat.create(req.body)
+    res.status(200).json(stat)
   } catch (error) {
     res.stats(500).json(error)
   }
 }
 
 export {
-  index
+  index,
+  create
 }
