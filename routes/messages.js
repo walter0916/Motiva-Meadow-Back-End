@@ -10,6 +10,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, messagesCtrl.index)
+router.post('/:senderId/:recipientId/new', checkAuth, messagesCtrl.create)
 
 
 export { router }
