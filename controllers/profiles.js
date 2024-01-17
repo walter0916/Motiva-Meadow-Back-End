@@ -11,6 +11,15 @@ async function index(req, res) {
   }
 }
 
+async function show(req, res) {
+  try {
+    const profile = await Profile.findById(req.params.profileId)
+    res.status(200).json(profile)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function addPhoto(req, res) {
   try {
     const imageFile = req.files.photo.path
@@ -62,7 +71,8 @@ async function updateFriends(req, res) {
 
 
 export { 
-  index, 
+  index,
+  show, 
   addPhoto,
   updatePreferences,
   updateFriends

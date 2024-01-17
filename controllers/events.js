@@ -1,4 +1,4 @@
-import { Event } from '../models/events.js'
+import { Event } from '../models/event.js'
 
 async function index(req, res) {
   try {

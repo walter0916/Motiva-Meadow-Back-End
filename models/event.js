@@ -7,14 +7,22 @@ const eventSchema = new Schema({
     type: String,
     require: true,
   },
-  date: {
+  start: {
     type: Date, 
     required: true
+  },
+  end: {
+    type: Date, 
+    required: true
+  },
+  allDay: {
+    type: Boolean,
+    default: false
   },
   color: {
     type: String,
     enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink'],
-    default: 'white'
+    default: 'green'
   },
   participants: [{
     type: Schema.Types.ObjectId,
@@ -24,7 +32,9 @@ const eventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Profile'
   }
-})
+},
+  { timestamps: true }
+)
 
 const Event = mongoose.model('Event', eventSchema)
 
