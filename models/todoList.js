@@ -9,7 +9,7 @@ const itemSchema = new Schema({
   },
   color: {
     type: String,
-    enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink'],
+    enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink', 'white'],
     default: 'white'
   },
   timeForTasks: {
