@@ -1,6 +1,6 @@
 import { ToDoList } from "../models/todoList.js"
 
-async function index(res, req){
+async function index(req, res){
   try {
     const todoLists = await ToDoList.find({author: req.params.profileId})
       .populate('tasks')
@@ -11,11 +11,11 @@ async function index(res, req){
   }
 }
 
-async function create(res, req){
+async function create(req, res){
   try {
     req.body.author = req.params.profileId
     const todoList = await ToDoList.create(req.body)
-    res.status(200).json(todoList)
+    res.status(201).json(todoList)
   } catch (error) {
     res.status(500).json(error)
   }

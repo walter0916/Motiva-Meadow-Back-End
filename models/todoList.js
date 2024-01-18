@@ -12,6 +12,9 @@ const itemSchema = new Schema({
     enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink'],
     default: 'white'
   },
+  timeForTasks: {
+    type: String,
+  },
   completed: {
     type: Boolean,
     default: false
@@ -21,14 +24,10 @@ const itemSchema = new Schema({
 )
 
 const toDoListSchema = new Schema({
-  title: String, 
-  tasks: [itemSchema],
-  type: {
+  title: {
     type: String,
-    enum: ['daily', 'weekly', 'custom'],
-    required: true,
-    default: 'daily'
-  },
+  }, 
+  tasks: [itemSchema],
   deadline: {
     type: Date,
     required: true
