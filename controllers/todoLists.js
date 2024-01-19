@@ -51,6 +51,21 @@ async function update(req, res){
   }
 }
 
+async function updateTaskCompleted(req, res) {
+  try {
+    const todoListId = req.params.listId
+    const taskId = req.params.taskId
+    const completedValue = req.body.completed
+    const todoList = await ToDoList.findById(todoListId)
+    const taskIndex = todoList.tasks.findIndex(task => task._id.equals(taskId))
+    todoList.tasks[taskIndex].completed = completedValue
+    await todoList.save()
+    res.status(200).json(todoList)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function deleteList(req, res){
   try {
     const todoList = await ToDoList.findByIdAndDelete(req.params.todoId)
@@ -60,10 +75,24 @@ async function deleteList(req, res){
   }
 }
 
+async function deleteTask(req, res){
+  try {
+    const todoList = await ToDoList.findById(req.params.listId)
+    const taskIndex = todoList.tasks.findIndex(task => task._id.toString() === req.params.taskId)
+    todoList.tasks.splice(taskIndex, 1)
+    await todoList.save()
+    res.status(200).json(todoList)
+  } catch (error) {
+    res.status(500).json(error)    
+  }
+}
+
 export {
   index,
   create,
   addTask,
   update,
+  updateTaskCompleted,
   deleteList as delete,
+  deleteTask
 }
