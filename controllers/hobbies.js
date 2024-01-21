@@ -1,3 +1,4 @@
+const cron = require('node-cron')
 import { Hobby } from '../models/hobby.js'
 
 async function index (req, res){
@@ -62,7 +63,55 @@ async function completeHobby(req, res) {
   }
 }
 
+async function updateHobbyProgress(req, res) {
+  try {
+    const hobbyId = req.params.hobbyId
+    const hobby = await Hobby.findById(hobbyId)
+    const currentDay = req.body.currentDay
+    if (!hobby.completedDays.includes(currentDay)) {
+      hobby.completedDays.push(currentDay)
+      hobby.currentNumber += 1
+      if (hobby.currentNumber >= hobby.weeklyGoal) {
+        hobby.completed = true
+      } else {
+        hobby.completed = false
+      }
+      await hobby.save()
+      res.status(200).json(hobby)
+    } else {
+      res.status(200).json(hobby)
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
+cron.schedule('0 0 * * 0', async () => {
+  try {
+    const allHobbies = await Hobby.find()
+    await Promise.all(allHobbies.map(async (hobby) => {
+      const today = new Date()
+      const endOfWeek = new Date(today)
+      endOfWeek.setDate(today.getDate() + (6 - today.getDay()))
+      hobby.completedDays = []
+      hobby.currentNumber = 0
+      if (hobby.completed) {
+        hobby.currentStreak += 1
+        if (hobby.currentStreak > hobby.LongestStreak) {
+          hobby.LongestStreak = hobby.currentStreak
+        }
+        hobby.LastCompleted = endOfWeek
+      } else {
+        hobby.currentStreak = 0
+      }
+      hobby.completed = false
+      await hobby.save()
+    }))
+    console.log('Weekly hobby reset completed.')
+  } catch (error) {
+    console.error('Error during weekly hobby reset:', error)
+  }
+})
 
 export {
   index,

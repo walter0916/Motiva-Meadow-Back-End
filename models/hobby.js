@@ -16,6 +16,10 @@ const hobbySchema = new Schema({
     type: Number,
     required: true
   },
+  currentNumber: {
+    type: Number,
+    default: 0
+  },
   author: {
     type: Schema.Types.ObjectId,
     ref: 'Profile'
@@ -30,7 +34,11 @@ const hobbySchema = new Schema({
   },
   LastCompleted: {
     type: Date
-  }
+  },
+  completedDays: [{
+    type: String,
+    enum: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  }],
 },
   { timestamps: true }
 )
