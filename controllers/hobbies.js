@@ -118,5 +118,6 @@ export {
   updateHobby as update,
   create,
   deleteHobby as delete,
-  completeHobby
+  completeHobby,
+  updateHobbyProgress
 }
