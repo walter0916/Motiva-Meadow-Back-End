@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const hobbySchema = new Schema({
+const habitSchema = new Schema({
   title: {
     type: String, 
     required: true
@@ -19,6 +19,10 @@ const hobbySchema = new Schema({
   currentNumber: {
     type: Number,
     default: 0
+  },
+  completed:{
+    type: Boolean,
+    default: false
   },
   author: {
     type: Schema.Types.ObjectId,
@@ -43,6 +47,6 @@ const hobbySchema = new Schema({
   { timestamps: true }
 )
 
-const Hobby = mongoose.model('Hobby', hobbySchema)
+const Habit = mongoose.model('Hobby', habitSchema)
 
-export { Hobby }
+export { Habit }

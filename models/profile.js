@@ -22,6 +22,10 @@ const preferencesSchema = new Schema({
   showHobbyProgress: {
     type: Boolean,
     default: false
+  },
+  seeStats: {
+    type: Boolean,
+    default: false
   }
 },
   { timestamps: true}

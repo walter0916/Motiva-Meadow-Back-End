@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
-import * as hobbiesCtrl from '../controllers/hobbies.js'
+import * as hobbiesCtrl from '../controllers/habits.js'
 
 const router = Router()
 
@@ -11,10 +11,9 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, hobbiesCtrl.index)
 router.post('/:profileId/new', checkAuth, hobbiesCtrl.create)
-router.put('/:hobbyId/edit', checkAuth, hobbiesCtrl.update)
-router.delete('/:hobbyId/delete', checkAuth, hobbiesCtrl.delete)
-router.put('/:hobbyId/updateCompletion', checkAuth, hobbiesCtrl.completeHobby)
-router.put('/:hobbyId/updateHobbyProgress', checkAuth, hobbiesCtrl.updateHobbyProgress)
+router.put('/:habitId/edit', checkAuth, hobbiesCtrl.update)
+router.delete('/:habitId/delete', checkAuth, hobbiesCtrl.delete)
+router.put('/:habitId/updateHabitProgress', checkAuth, hobbiesCtrl.updateHabitProgress)
 
 
 export { router }
