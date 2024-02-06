@@ -13,7 +13,7 @@ import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
 import { router as eventsRouter } from './routes/events.js'
 import { router as goalsRouter } from './routes/goals.js'
-import { router as hobbiesRouter } from './routes/hobbies.js'
+import { router as habitsRouter } from './routes/habits.js'
 import { router as messagesRouter } from './routes/messages.js'
 import { router as statsRouter } from './routes/stats.js'
 import { router as todoListsRouter } from './routes/todoLists.js'
@@ -32,7 +32,7 @@ app.use('/api/profiles', profilesRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/events', eventsRouter)
 app.use('/api/goals', goalsRouter)
-app.use('/api/hobbies', hobbiesRouter)
+app.use('/api/habits', habitsRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/stats', statsRouter)
 app.use('/api/toDos', todoListsRouter)

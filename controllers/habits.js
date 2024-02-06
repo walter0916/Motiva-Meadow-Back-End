@@ -72,7 +72,7 @@ async function updateHabitProgress(req, res) {
 
 cron.schedule('0 0 * * 0', async () => {
   try {
-    const allHabits = await Habit.find();
+    const allHabits = await Habit.find()
     await Promise.all(allHabits.map(async (habit) => {
       const today = new Date()
       const endOfWeek = new Date(today)

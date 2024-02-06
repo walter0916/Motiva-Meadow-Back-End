@@ -16,11 +16,6 @@ const goalSchema = new Schema({
     type: String,
     required: true
   },
-  priority: {
-    type: String,
-    enum: ['casual', 'kind of important', 'super important' ],
-    default: 'casual'
-  },
   completed: {
     type: Boolean,
     default: false

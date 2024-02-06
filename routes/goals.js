@@ -10,9 +10,9 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, goalsCtrl.index)
-router.post('/:profileId/create', checkAuth, goalsCtrl.create)
+router.post('/:profileId/new', checkAuth, goalsCtrl.create)
 router.put('/:goalId/edit', checkAuth, goalsCtrl.update)
 router.delete('/:goalId/delete', checkAuth, goalsCtrl.delete)
-router.post('/:goalId/update', checkAuth, goalsCtrl.updateCompletion)
+router.put('/:goalId/updateCompletion', checkAuth, goalsCtrl.updateCompletion)
 
 export { router }
