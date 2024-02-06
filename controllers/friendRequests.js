@@ -1,0 +1,1 @@
+import { FriendRequest } from "../models/friendRequest.js"

@@ -17,6 +17,7 @@ import { router as habitsRouter } from './routes/habits.js'
 import { router as messagesRouter } from './routes/messages.js'
 import { router as statsRouter } from './routes/stats.js'
 import { router as todoListsRouter } from './routes/todoLists.js'
+import { router as friendRequestsRouter } from './routes/friendRequests.js'
 
 // create the express app
 const app = express()
@@ -36,6 +37,7 @@ app.use('/api/habits', habitsRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/stats', statsRouter)
 app.use('/api/toDos', todoListsRouter)
+app.use('/api/friendRequests', friendRequestsRouter)
 
 // handle 404 errors
 app.use(function (req, res, next) {
