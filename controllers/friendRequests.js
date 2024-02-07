@@ -28,7 +28,17 @@ async function acceptRequest(req, res) {
   }
 }
 
+async function deleteRequest(req, res) {
+  try {
+    const request = await FriendRequest.findByIdAndDelete(req.params.requestId)
+    res.status(200).json(request)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   index,
-  acceptRequest
+  acceptRequest,
+  deleteRequest as delete,
 }

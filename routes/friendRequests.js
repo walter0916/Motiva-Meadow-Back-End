@@ -11,6 +11,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/:profileId', checkAuth, friendRequestsCtrl.index)
 router.put('/:requestId/accept', checkAuth, friendRequestsCtrl.acceptRequest)
+router.delete('/:requestId/delete', checkAuth, friendRequestsCtrl.delete)
 
 
 
