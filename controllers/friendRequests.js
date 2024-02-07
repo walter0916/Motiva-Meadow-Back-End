@@ -3,10 +3,24 @@ import { Profile } from "../models/profile.js"
 
 async function index(req, res) {
   try {
-    const requests = await FriendRequest.find({recipient: req.params.profileId})
+    const requests = await FriendRequest.find({
+      $or: [
+        { sender: req.params.profileId },
+        { recipient: req.params.profileId }
+      ]
+    })
       .populate('sender')
       .populate('recipient')
     res.status(200).json(requests)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+async function create(req, res) {
+  try {
+    const request = await FriendRequest.create(req.body)
+    res.status(200).json(request)
   } catch (error) {
     res.status(500).json(error)
   }
@@ -41,4 +55,5 @@ export {
   index,
   acceptRequest,
   deleteRequest as delete,
+  create
 }
