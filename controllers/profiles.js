@@ -73,9 +73,7 @@ async function updateFriends(req, res) {
 async function removeFriend(req, res) {
   try {
     const profile = await Profile.findById(req.params.profileId)
-    const friendsData = profile.friends
-    const filteredFriends = friendsData.filter(friend => friend._id !== req.params.friendId)
-    profile.friends = filteredFriends
+    profile.friends.pull(req.params.friendId)
     await profile.save()
     res.status(200).json(profile)
   } catch (error) {
