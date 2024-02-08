@@ -33,9 +33,16 @@ async function acceptRequest(req, res) {
     await request.save()
     const senderProfile = await Profile.findById(request.sender)
     const recipientProfile = await Profile.findById(request.recipient)
-    recipientProfile.friends.push(request.sender)
-    senderProfile.friends.push(request.recipient)
+    const senderIsFriend = senderProfile.friends.includes(request.recipient)
+    const recipientIsFriend = recipientProfile.friends.includes(request.sender)
+    if (!senderIsFriend) {
+      senderProfile.friends.push(request.recipient)
+    }
+    if (!recipientIsFriend) {
+      recipientProfile.friends.push(request.sender)
+    }
     await Promise.all([senderProfile.save(), recipientProfile.save()])
+    await FriendRequest.findByIdAndDelete(req.params.requestId)
     res.status(200).json(request)
   } catch (error) {
     res.status(500).json(error)
