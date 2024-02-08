@@ -14,6 +14,7 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const profile = await Profile.findById(req.params.profileId)
+      .populate('friends')
     res.status(200).json(profile)
   } catch (error) {
     res.status(500).json(error)
@@ -69,11 +70,26 @@ async function updateFriends(req, res) {
   }
 }
 
+async function removeFriend(req, res) {
+  try {
+    const profile = await Profile.findById(req.params.profileId)
+    const friendsData = profile.friends
+    const filteredFriends = friendsData.filter(friend => friend._id !== req.params.friendId)
+    profile.friends = filteredFriends
+    await profile.save()
+    res.status(200).json(profile)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json(error)
+  }
+}
+
 
 export { 
   index,
   show, 
   addPhoto,
   updatePreferences,
-  updateFriends
+  updateFriends,
+  removeFriend
 }

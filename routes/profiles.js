@@ -14,5 +14,6 @@ router.get('/:profileId', checkAuth, profilesCtrl.show)
 router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 router.put('/:profileId/edit-preferences', checkAuth, profilesCtrl.updatePreferences)
 router.put('/:profileId/edit-friends', checkAuth, profilesCtrl.updateFriends)
+router.patch('/:profileId/:friendId/remove', checkAuth, profilesCtrl.removeFriend)
 
 export { router }

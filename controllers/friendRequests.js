@@ -28,7 +28,7 @@ async function create(req, res) {
 
 async function acceptRequest(req, res) {
   try {
-    const request = await Request.findById(req.params.requestId)
+    const request = await FriendRequest.findById(req.params.requestId)
     request.accepted = true
     await request.save()
     const senderProfile = await Profile.findById(request.sender)
