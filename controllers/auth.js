@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 
 import { User } from '../models/user.js'
 import { Profile } from '../models/profile.js'
+import { Stat } from '../models/stat.js'
 
 async function signup(req, res) {
   try {
@@ -14,6 +15,9 @@ async function signup(req, res) {
     if (user) throw new Error('Account already exists')
 
     const newProfile = await Profile.create(req.body)
+
+    const newStat = await Stat.create({ profile: newProfile._id })
+
     req.body.profile = newProfile._id
     const newUser = await User.create(req.body)
 
@@ -24,6 +28,9 @@ async function signup(req, res) {
     try {
       if (req.body.profile) {
         await Profile.findByIdAndDelete(req.body.profile)
+      }
+      if (newStat) {
+        await Stat.findByIdAndDelete(newStat._id)
       }
     } catch (err) {
       console.log(err)

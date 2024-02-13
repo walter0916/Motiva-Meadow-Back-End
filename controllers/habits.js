@@ -1,5 +1,8 @@
 import cron from 'node-cron'
+import { CronJob } from 'cron'
 import { Habit } from '../models/habit.js'
+
+
 
 async function index (req, res){
   try {
@@ -55,7 +58,7 @@ async function updateHabitProgress(req, res) {
     if (isChecked) {
       if (!habit.completedDays.includes(currentDay)) {
         habit.completedDays.push(currentDay)
-        habit.currentNumber += 1;
+        habit.currentNumber += 1
       }
     } else {
       const indexToRemove = habit.completedDays.indexOf(currentDay)
@@ -70,13 +73,13 @@ async function updateHabitProgress(req, res) {
   }
 }
 
-cron.schedule('0 0 * * 0', async () => {
+const weeklyResetJob = new CronJob('00 00 00 * * 7', async () => {
   try {
     const allHabits = await Habit.find()
     await Promise.all(allHabits.map(async (habit) => {
       const today = new Date()
       const endOfWeek = new Date(today)
-      endOfWeek.setDate(today.getDate() + (6 - today.getDay()))
+      endOfWeek.setDate(today.getDate() + (7 - today.getDay()))
       habit.completedDays = []
       habit.currentNumber = 0
       if (habit.completed) {
@@ -96,6 +99,8 @@ cron.schedule('0 0 * * 0', async () => {
     console.error('Error during weekly habit reset:', error)
   }
 })
+
+weeklyResetJob.start()
 
 export {
   index,
