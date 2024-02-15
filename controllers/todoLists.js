@@ -23,7 +23,7 @@ async function create(req, res){
 
 async function addTask(req, res){
   try {
-    console.log('Start of addTask function');
+    console.log('Start of addTask function')
     const todoListId = req.params.listId
     const list = await ToDoList.findById(todoListId)
     const task = req.body
@@ -32,9 +32,8 @@ async function addTask(req, res){
     const newTask = list.tasks[list.tasks.length - 1]
     res.status(200).json(newTask)
   } catch (error) {
-    console.error('Error in addTask function:', error);
-
-    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    console.error('Error in addTask function:', error)
+    res.status(500).json({ error: 'Internal Server Error', details: error.message })
   }
 }
 

@@ -12,9 +12,6 @@ const itemSchema = new Schema({
     enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink', 'white'],
     default: 'white'
   },
-  timeForTasks: {
-    type: String,
-  },
   completed: {
     type: Boolean,
     default: false
