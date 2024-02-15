@@ -55,10 +55,9 @@ async function updateProfile(req, res) {
 
 async function updatePreferences(req, res) {
   try {
-    const { preferences } = req.body
     const updatedProfile = await Profile.findByIdAndUpdate(
       req.params.profileId,
-      { preferences },
+      { preferences: req.body },
       { new: true }
     )
     res.status(200).json(updatedProfile)
