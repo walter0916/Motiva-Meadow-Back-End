@@ -19,7 +19,7 @@ const preferencesSchema = new Schema({
     type: Boolean,
     default: false
   },
-  showHobbyProgress: {
+  showHabitProgress: {
     type: Boolean,
     default: false
   },

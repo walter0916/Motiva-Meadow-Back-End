@@ -40,6 +40,19 @@ async function addPhoto(req, res) {
   }
 }
 
+async function updateProfile(req, res) {
+  try {
+    const profile = await Profile.findByIdAndUpdate(
+      req.params.userId,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(profile)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function updatePreferences(req, res) {
   try {
     const { preferences } = req.body
@@ -87,7 +100,8 @@ export {
   index,
   show, 
   addPhoto,
+  updateProfile,
   updatePreferences,
   updateFriends,
-  removeFriend
+  removeFriend,
 }
