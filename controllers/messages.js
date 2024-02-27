@@ -2,12 +2,7 @@ import { Message } from '../models/message.js'
 
 async function index(req, res) {
   try {
-    const messages = await Message.find({
-      $or: [
-        { sender: req.params.profileId },
-        { recipient: req.params.profileId }
-      ]
-    })
+    const messages = await Message.find({ recipient: req.params.profileId })
       .populate('sender')
       .populate('recipient')
       .sort({ createdAt: 'desc' })

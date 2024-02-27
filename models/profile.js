@@ -38,7 +38,10 @@ const profileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Profile'
   }],
-  preferences: [preferencesSchema] 
+  preferences: {
+    type: [preferencesSchema],
+    default: [preferencesSchema]
+  }
 },{
   timestamps: true,
 })
