@@ -7,7 +7,7 @@ const statSchema = new Schema({
     type: Number,
     default: 0
   },
-  hobbiesStreak: {
+  habitsStreak: {
     type: Number,
     default: 0
   },

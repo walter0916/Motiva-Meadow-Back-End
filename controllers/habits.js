@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import { CronJob } from 'cron'
 import { Habit } from '../models/habit.js'
-
+import { Stat } from '../models/stat.js'
 
 
 async function index (req, res){
@@ -93,6 +93,13 @@ const weeklyResetJob = new CronJob('00 00 00 * * 7', async () => {
       }
       habit.completed = false
       await habit.save()
+
+      const authorId = habit.author
+      const stat = await Stat.findOne({ profile: authorId })
+      if (stat) {
+        stat.habitsStreak = habit.currentStreak
+        await stat.save()
+      }
     }))
     console.log('Weekly habit reset completed.')
   } catch (error) {

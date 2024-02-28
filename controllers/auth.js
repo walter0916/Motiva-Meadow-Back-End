@@ -16,7 +16,7 @@ async function signup(req, res) {
 
     const newProfile = await Profile.create(req.body)
 
-    const newStat = await Stat.create({ profile: newProfile._id })
+    await Stat.create({ profile: newProfile._id })
 
     req.body.profile = newProfile._id
     const newUser = await User.create(req.body)
