@@ -1,4 +1,5 @@
 import { ToDoList } from "../models/todoList.js"
+import { Stat } from "../models/stat.js"
 
 async function index(req, res){
   try {
@@ -56,9 +57,28 @@ async function updateTaskCompleted(req, res) {
     const taskId = req.params.taskId
     const completedValue = req.body.completed
     const todoList = await ToDoList.findById(todoListId)
+
+    const prevCompletionState = todoList.completed
     const taskIndex = todoList.tasks.findIndex(task => task._id.equals(taskId))
     todoList.tasks[taskIndex].completed = completedValue
+
+
+    const allTasksCompleted = todoList.tasks.every(task => task.completed)
+    todoList.completed = allTasksCompleted
+
     await todoList.save()
+
+    const authorId = todoList.author
+    const stat = await Stat.findOne({ profile: authorId })
+    if (stat) {
+      if (completedValue && !prevCompletionState && allTasksCompleted) {
+        stat.toDoListCompleted += 1 
+      } else if (!completedValue && prevCompletionState) {
+        stat.toDoListCompleted -= 1
+      }
+      await stat.save()
+    }
+
     res.status(200).json(todoList)
   } catch (error) {
     res.status(500).json(error)

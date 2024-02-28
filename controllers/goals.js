@@ -1,4 +1,5 @@
 import { Goal } from '../models/goal.js'
+import { Stat } from '../models/stat.js'
 
 async function index(req, res){
   try {
@@ -51,6 +52,18 @@ async function updateCompletion(req, res) {
       { completed },
       { new: true }
     )
+
+    const authorId = goal.author
+    const stat = await Stat.findOne({ profile: authorId })
+    if (stat) {
+      if (completed) {
+        stat.goalsCompleted += 1
+      } else {
+        stat.goalsCompleted -= 1
+      }
+      await stat.save()
+    }
+
     res.status(200).json(goal)
   } catch (error) {
     res.status(500).json(error)
