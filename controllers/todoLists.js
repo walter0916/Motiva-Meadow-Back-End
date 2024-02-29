@@ -107,6 +107,15 @@ async function deleteTask(req, res){
   }
 }
 
+async function archiveList(req, res){
+  try {
+    const list = await ToDoList.findByIdAndUpdate(req.params.listId, { archive: true }, { new: true })
+    res.status(200).json(list)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 const dailyJob = new CronJob('00 01 00 * * *', async () => {
   try {
     const allLists = await ToDoList.find()
@@ -139,5 +148,6 @@ export {
   update,
   updateTaskCompleted,
   deleteList as delete,
-  deleteTask
+  deleteTask,
+  archiveList
 }
