@@ -73,7 +73,7 @@ async function updateHabitProgress(req, res) {
   }
 }
 
-const weeklyResetJob = new CronJob('00 00 00 * * 7', async () => {
+const weeklyResetJob = new CronJob('00 00 00 * * sun', async () => {
   try {
     const allHabits = await Habit.find()
     await Promise.all(allHabits.map(async (habit) => {

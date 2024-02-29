@@ -1,4 +1,5 @@
 import { ToDoList } from "../models/todoList.js"
+import { CronJob } from 'cron'
 import { Stat } from "../models/stat.js"
 
 async function index(req, res){
@@ -105,6 +106,31 @@ async function deleteTask(req, res){
     res.status(500).json(error)    
   }
 }
+
+const dailyJob = new CronJob('00 01 00 * * *', async () => {
+  try {
+    const allLists = await ToDoList.find()
+
+    for (const list of allLists) {
+      if (list.dueDate && new Date(list.dueDate) < new Date()) {
+        const stat = await Stat.findOne({ profile: list.author })
+        if (stat) {
+          if (list.completed) {
+            stat.toDoListStreak++
+          } else {
+            stat.toDoListStreak = 0
+          }
+          await stat.save()
+        }
+      }
+    }
+    console.log('Daily todo list check completed.')
+  } catch (error) {
+    console.error('Error during daily todo list check:', error)
+  }
+})
+
+dailyJob.start()
 
 export {
   index,
