@@ -121,7 +121,7 @@ const dailyJob = new CronJob('00 01 00 * * *', async () => {
     const allLists = await ToDoList.find()
 
     for (const list of allLists) {
-      if (list.dueDate && new Date(list.dueDate) < new Date()) {
+      if (list.deadline && new Date(list.deadline) < new Date()) {
         const stat = await Stat.findOne({ profile: list.author })
         if (stat) {
           if (list.completed) {
