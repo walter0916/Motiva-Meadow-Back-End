@@ -109,7 +109,7 @@ async function deleteTask(req, res){
 
 async function archiveList(req, res){
   try {
-    const list = await ToDoList.findByIdAndUpdate(req.params.listId, { archive: true }, { new: true })
+    const list = await ToDoList.findByIdAndUpdate(req.params.listId, { archived: true }, { new: true })
     res.status(200).json(list)
   } catch (error) {
     res.status(500).json(error)
@@ -118,7 +118,11 @@ async function archiveList(req, res){
 
 const dailyJob = new CronJob('00 01 00 * * *', async () => {
   try {
-    const allLists = await ToDoList.find()
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1)
+
+    const allLists = await ToDoList.find({ deadline: { $lte: yesterday } })
 
     for (const list of allLists) {
       if (list.deadline && new Date(list.deadline) < new Date()) {
