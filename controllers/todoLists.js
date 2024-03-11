@@ -118,14 +118,19 @@ async function archiveList(req, res){
 
 const dailyJob = new CronJob('00 01 00 * * *', async () => {
   try {
+    const yesterdayStart = new Date()
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1)
+    yesterdayStart.setHours(0, 0, 0, 0)
 
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1)
+    const yesterdayEnd = new Date()
+    yesterdayEnd.setDate(yesterdayEnd.getDate() - 1)
+    yesterdayEnd.setHours(23, 59, 59, 999)
 
-    const allLists = await ToDoList.find({ deadline: { $lte: yesterday } })
+    const allLists = await ToDoList.find({ deadline: { $gte: yesterdayStart, $lte: yesterdayEnd } })
 
     for (const list of allLists) {
-      if (list.deadline && new Date(list.deadline) < new Date()) {
+      const deadlineDate = new Date(list.deadline)
+      if (deadlineDate >= yesterdayStart && deadlineDate <= yesterdayEnd) {
         const stat = await Stat.findOne({ profile: list.author })
         if (stat) {
           if (list.completed) {
