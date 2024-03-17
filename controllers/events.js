@@ -1,4 +1,5 @@
 import { Event } from '../models/event.js'
+import { Invitation } from '../models/invitation.js'
 
 async function index(req, res) {
   try {
@@ -13,8 +14,21 @@ async function index(req, res) {
 
 async function create(req, res) {
   try {
-    req.body.author = req.params.profileId
+    const { profileId } = req.params
+    req.body.author = profileId
     const event = await Event.create(req.body)
+    if (req.body.participants && req.body.participants.length > 0) {
+      const invitations = req.body.participants.map(async (participant) => {
+        const invitation = await Invitation.create({
+          sender: profileId,
+          recipient: participant,
+          eventId: event._id 
+        })
+        return invitation
+      })
+      await Promise.all(invitations)
+    }
+
     res.status(200).json(event)
   } catch (error) {
     res.status(500).json(error)
