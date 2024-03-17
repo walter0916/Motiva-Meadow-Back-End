@@ -1,6 +1,15 @@
 import { Event } from "../models/event"
 import { Invitation } from "../models/invitation"
 
+async function index(req, res) {
+  try {
+    const invitations = await Invitation.find({recipient: req.params.profileId})
+    res.status(200).json(invitations)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function acceptInvitation(req, res) {
   try {
     const invitation = await Invitation.findById(req.params.invitationId)
@@ -33,6 +42,7 @@ async function declineInvitation(req, res) {
 }
 
 export {
+  index,
   acceptInvitation,
   declineInvitation
 }

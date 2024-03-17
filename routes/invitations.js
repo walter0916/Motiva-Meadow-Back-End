@@ -9,6 +9,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
+router.get('/:profileId', checkAuth, invitationsCtrl.index)
 router.put('/:profileId/:invitationId/accept', checkAuth, invitationsCtrl.acceptInvitation)
 router.put('/:profileId/:invitationId/decline', checkAuth, invitationsCtrl.declineInvitation)
 
