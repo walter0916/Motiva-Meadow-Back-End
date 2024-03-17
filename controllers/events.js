@@ -17,8 +17,8 @@ async function create(req, res) {
     const { profileId } = req.params
     req.body.author = profileId
     const event = await Event.create(req.body)
-    if (req.body.participants && req.body.participants.length > 0) {
-      const invitations = req.body.participants.map(async (participant) => {
+    if (req.body.invitedParticipants && req.body.invitedParticipants.length > 0) {
+      const invitations = req.body.invitedParticipants.map(async (participant) => {
         const invitation = await Invitation.create({
           sender: profileId,
           recipient: participant,

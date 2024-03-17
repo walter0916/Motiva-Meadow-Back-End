@@ -24,7 +24,11 @@ const eventSchema = new Schema({
     enum: ['blue', 'green', 'yellow', 'purple', 'red', 'orange', 'pink'],
     default: 'green'
   },
-  participants: [{
+  invitedParticipants: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Profile'
+  }],
+  acceptedParticipants: [{
     type: Schema.Types.ObjectId,
     ref: 'Profile'
   }],
