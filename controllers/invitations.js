@@ -18,6 +18,21 @@ async function acceptInvitation(req, res) {
   }
 }
 
+async function declineInvitation(req, res) {
+  try {
+    const invitation = await Invitation.findById(req.params.invitationId)
+    const event = await Event.findById(invitation.event)
+    event.invitedParticipants.pull(req.params.profileId)
+    await event.save()
+    await invitation.remove()
+    res.status(200).json({ message: "Invitation declined successfully" })
+  } catch (error) {
+    console.error("Error declining invitation:", error)
+    res.status(500).json({ message: "Internal server error" })
+  }
+}
+
 export {
-  acceptInvitation
+  acceptInvitation,
+  declineInvitation
 }
