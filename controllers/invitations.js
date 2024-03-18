@@ -1,9 +1,12 @@
-import { Event } from "../models/event"
-import { Invitation } from "../models/invitation"
+import { Event } from "../models/event.js"
+import { Invitation } from "../models/invitation.js"
 
 async function index(req, res) {
   try {
-    const invitations = await Invitation.find({recipient: req.params.profileId})
+    const invitations = await Invitation.find({ recipient: req.params.profileId })
+      .populate('sender')
+      .populate('recipient')
+      .populate('event')
     res.status(200).json(invitations)
   } catch (error) {
     res.status(500).json(error)
@@ -19,7 +22,7 @@ async function acceptInvitation(req, res) {
     }
     event.acceptedParticipants.push(req.params.profileId)
     await event.save()
-    await invitation.remove()
+    await invitation.deleteOne()
     res.status(200).json({ message: "Invitation accepted successfully" })
   } catch (error) {
     console.error("Error accepting invitation:", error)
@@ -27,13 +30,15 @@ async function acceptInvitation(req, res) {
   }
 }
 
+
+
 async function declineInvitation(req, res) {
   try {
     const invitation = await Invitation.findById(req.params.invitationId)
     const event = await Event.findById(invitation.event)
     event.invitedParticipants.pull(req.params.profileId)
     await event.save()
-    await invitation.remove()
+    await invitation.deleteOne()
     res.status(200).json({ message: "Invitation declined successfully" })
   } catch (error) {
     console.error("Error declining invitation:", error)

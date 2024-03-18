@@ -22,7 +22,7 @@ async function create(req, res) {
         const invitation = await Invitation.create({
           sender: profileId,
           recipient: participant,
-          eventId: event._id 
+          event: event._id 
         })
         return invitation
       })

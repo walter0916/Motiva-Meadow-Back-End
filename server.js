@@ -39,7 +39,7 @@ app.use('/api/messages', messagesRouter)
 app.use('/api/stats', statsRouter)
 app.use('/api/toDos', todoListsRouter)
 app.use('/api/friendRequests', friendRequestsRouter)
-app.use('/api/invitation', invitationsRouter)
+app.use('/api/invitations', invitationsRouter)
 
 // handle 404 errors
 app.use(function (req, res, next) {

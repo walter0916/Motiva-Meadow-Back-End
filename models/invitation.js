@@ -11,10 +11,6 @@ const invitationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Profile'
   },
-  accepted:{
-    type: Boolean,
-    default: false
-  },
   event:{
     type: Schema.Types.ObjectId,
     ref: 'Event'
