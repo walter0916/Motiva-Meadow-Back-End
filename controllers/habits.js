@@ -75,7 +75,7 @@ async function updateHabitProgress(req, res) {
 const weeklyResetJob = new CronJob('00 00 00 * * sun', async () => {
   try {
     const allHabits = await Habit.find()
-    await Promise.all(allHabits.map(async (habit) => {
+    (allHabits.map(async (habit) => {
       const today = new Date()
       const endOfWeek = new Date(today)
       endOfWeek.setDate(today.getDate() + (7 - today.getDay()))

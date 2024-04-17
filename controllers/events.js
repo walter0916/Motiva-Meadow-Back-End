@@ -3,8 +3,15 @@ import { Invitation } from '../models/invitation.js'
 
 async function index(req, res) {
   try {
-    const events = await Event.find({ author: req.params.profileId })
+    const events = await Event.find({
+      $or: [
+        { author: req.params.profileId },
+        { acceptedParticipants: { $eq: req.params.profileId } }
+      ]
+    })
       .populate('author')
+      .populate('acceptedParticipants')
+      .populate('invitedParticipants')
       .sort({ createdAt: 'desc' })
     res.status(200).json(events)
   } catch (error) {
