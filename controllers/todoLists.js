@@ -25,7 +25,6 @@ async function create(req, res){
 
 async function addTask(req, res){
   try {
-    console.log('Start of addTask function')
     const todoListId = req.params.listId
     const list = await ToDoList.findById(todoListId)
     const task = req.body
