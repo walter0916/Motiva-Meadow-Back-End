@@ -75,7 +75,7 @@ async function updateHabitProgress(req, res) {
 const weeklyResetJob = new CronJob('00 00 00 * * sun', async () => {
   try {
     const allHabits = await Habit.find()
-    (allHabits.map(async (habit) => {
+    allHabits.forEach(async (habit) => {
       const today = new Date()
       const endOfWeek = new Date(today)
       endOfWeek.setDate(today.getDate() + (7 - today.getDay()))
@@ -99,7 +99,7 @@ const weeklyResetJob = new CronJob('00 00 00 * * sun', async () => {
         stat.habitsStreak = habit.currentStreak
         await stat.save()
       }
-    }))
+    })
     console.log('Weekly habit reset completed.')
   } catch (error) {
     console.error('Error during weekly habit reset:', error)
